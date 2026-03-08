@@ -1,26 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Discord Activity</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge Game - Discord Activity</title>
     <script src="https://unpkg.com/@discord/embedded-app-sdk@1.0.0/dist/index.js"></script>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #492516; }
+        #game-container { width: 100vw; height: 100vh; border: none; display: none; }
+        .loading { color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    </style>
 </head>
-<body style="margin:0; padding:0; overflow:hidden; background-color: #000;">
-    <iframe id="game-iframe" 
+<body>
+    <div id="loading-screen" class="loading">Connecting to Discord...</div>
+    
+    <iframe id="game-container" 
             src="https://itch.io/embed-upload/16438518?color=492516" 
-            style="width:100vw; height:100vh; border:none;" 
-            allowfullscreen>
+            allowfullscreen="" 
+            allow="autoplay; gamepad; keyboard">
     </iframe>
 
     <script>
-        // Initialize the Discord SDK
+        // 1. Initialize SDK
         const discordSdk = new discord.DiscordSDK("1089896483639271485");
 
-        async function setup() {
-            await discordSdk.ready();
-            console.log("Discord Activity is ready!");
+        async function init() {
+            try {
+                await discordSdk.ready();
+                console.log("Discord SDK is ready");
+                
+                // 2. Hide loading and show the game
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('game-container').style.display = 'block';
+            } catch (error) {
+                console.error("Discord SDK failed to load:", error);
+                document.getElementById('loading-screen').innerText = "Failed to connect to Discord.";
+            }
         }
 
-        setup();
+        init();
     </script>
 </body>
 </html>
