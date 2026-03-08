@@ -7,7 +7,7 @@
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=960 height=600 tabindex="-1" style="width: 960px; height: 600px; background: #231F20"></canvas>
-    <script src="Build/MergeGameV1.3.2WebGL.loader.js"></script>
+    <script src="Build/MergeGame1.2.2.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -27,9 +27,9 @@
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
         arguments: [],
-        dataUrl: "Build/MergeGameV1.3.2WebGL.data.br",
-        frameworkUrl: "Build/MergeGameV1.3.2WebGL.framework.js.br",
-        codeUrl: "Build/MergeGameV1.3.2WebGL.wasm.br",
+        dataUrl: "Build/MergeGame1.2.2.data.unityweb",
+        frameworkUrl: "Build/MergeGame1.2.2.framework.js.unityweb",
+        codeUrl: "Build/MergeGame1.2.2.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "SealDev",
         productName: "Merge Game",
