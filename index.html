@@ -4,11 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merge Game - Discord Activity</title>
+    
     <script src="https://unpkg.com/@discord/embedded-app-sdk@1.0.0/dist/index.js"></script>
+    
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #492516; }
-        #game-container { width: 100vw; height: 100vh; border: none; display: none; }
-        .loading { color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%; 
+            overflow: hidden; 
+            background: #492516; 
+        }
+        #game-container { 
+            width: 100vw; 
+            height: 100vh; 
+            border: none; 
+            display: none; /* Hidden until Discord is ready */
+        }
+        .loading { 
+            color: white; 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
     </style>
 </head>
 <body>
@@ -16,29 +37,30 @@
     
     <iframe id="game-container" 
             src="https://itch.io/embed-upload/16438518?color=492516" 
-            allowfullscreen="" 
+            allowfullscreen="true" 
             allow="autoplay; gamepad; keyboard">
     </iframe>
 
     <script>
-        // 1. Initialize SDK
+        // Insert your 18-digit Client ID here (Keep the quotes!)
         const discordSdk = new discord.DiscordSDK("1089896483639271485");
 
-        async function init() {
+        async function initDiscord() {
             try {
+                // Wait for Discord to confirm the activity is running
                 await discordSdk.ready();
-                console.log("Discord SDK is ready");
+                console.log("Discord SDK is ready!");
                 
-                // 2. Hide loading and show the game
+                // Hide the loading screen and show the game iframe
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('game-container').style.display = 'block';
             } catch (error) {
                 console.error("Discord SDK failed to load:", error);
-                document.getElementById('loading-screen').innerText = "Failed to connect to Discord.";
+                document.getElementById('loading-screen').innerText = "Failed to connect to Discord. Are you running this inside a Discord Voice Channel?";
             }
         }
 
-        init();
+        initDiscord();
     </script>
 </body>
 </html>
