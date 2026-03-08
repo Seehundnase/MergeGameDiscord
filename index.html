@@ -4,50 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merge Game</title>
-    
     <script src="https://cdn.jsdelivr.net/npm/@discord/embedded-app-sdk@1.0.0/dist/index.js"></script>
-    
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #492516; }
-        #game-container { width: 100vw; height: 100vh; border: none; display: none; }
+        #game-frame { width: 100vw; height: 100vh; border: none; display: none; }
         .loading { color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
     </style>
 </head>
 <body>
-    <div id="loading-screen" class="loading">Connecting to Discord...</div>
+    <div id="loading-screen" class="loading">Initializing Merge Game...</div>
     
-    <iframe id="game-container" 
-            src="https://itch.io/embed-upload/16438518?color=492516" 
-            allowfullscreen="true" 
-            allow="autoplay; gamepad; keyboard">
-    </iframe>
+    <iframe id="game-frame" src="./game.html" allowfullscreen="true" allow="autoplay; gamepad; keyboard"></iframe>
 
     <script>
         async function startApp() {
-            // Check if the SDK is available in the window object
             const DiscordSDK = window.discord?.DiscordSDK;
-            
             if (!DiscordSDK) {
-                console.log("Waiting for SDK...");
                 setTimeout(startApp, 100);
                 return;
             }
 
-            // REPLACE THIS WITH YOUR ACTUAL CLIENT ID
-            const discordSdk = new DiscordSDK("1089896483639271485");
+            const discordSdk = new DiscordSDK("YOUR_CLIENT_ID_HERE");
 
             try {
                 await discordSdk.ready();
-                console.log("Discord SDK is ready!");
-                
                 document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('game-container').style.display = 'block';
+                document.getElementById('game-frame').style.display = 'block';
             } catch (error) {
-                console.error("Connection failed:", error);
-                document.getElementById('loading-screen').innerText = "Discord connection failed.";
+                console.error("Discord connection error:", error);
+                document.getElementById('loading-screen').innerText = "Please launch from a Discord Voice Channel.";
             }
         }
-
         startApp();
     </script>
 </body>
